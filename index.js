@@ -15,8 +15,8 @@ app.get('/api/blogs', (request, response) => {
   Blog
     .find({})
     .then(blogs => {
-      response.json(blogs)
-    })
+    response.json(blogs)
+  })
 })
 
 app.post('/api/blogs', (request, response) => {
@@ -25,8 +25,8 @@ app.post('/api/blogs', (request, response) => {
   blog
     .save()
     .then(result => {
-      response.status(201).json(result)
-    })
+    response.status(201).json(result)
+  })
 })
 
 const PORT = 3003
