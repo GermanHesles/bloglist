@@ -4,17 +4,22 @@
   "description": "list-blogs",
   "main": "index.js",
   "scripts": {
+    "lint": "esLint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "German Hesles",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "http": "^0.0.1-security",
-    "mongoose": "^6.2.7"
+    "cors": "2.8.5",
+    "express": "4.17.3",
+    "http": "0.0.1-security",
+    "mongoose": "6.2.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "2.0.15",
+    "standard": "16.0.4"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }
