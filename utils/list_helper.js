@@ -1,4 +1,6 @@
+const _ = require('lodash')
 const { all } = require("express/lib/application")
+
 
 const dummy = (blog) => {
   return 1
@@ -16,7 +18,7 @@ const totalLikes = (blogs) => {
 }
 
 const favoriteBlog = (blogs) => {
-  const allLikes = blogs.map((blog) => {
+/*   const allLikes = blogs.map((blog) => {
     return blog.likes
   })
 
@@ -24,7 +26,11 @@ const favoriteBlog = (blogs) => {
 
   const position = allLikes.indexOf(maxLikes)
 
-  return blogs[position]
+  return blogs[position] */
+
+  return _.maxBy(blogs, (blog) => {
+    return blog.likes
+  })
 }
 
 module.exports = {
