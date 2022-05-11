@@ -18,23 +18,56 @@ const totalLikes = (blogs) => {
 }
 
 const favoriteBlog = (blogs) => {
-/*   const allLikes = blogs.map((blog) => {
-    return blog.likes
-  })
-
-  const maxLikes = Math.max(...allLikes)
-
-  const position = allLikes.indexOf(maxLikes)
-
-  return blogs[position] */
-
   return _.maxBy(blogs, (blog) => {
     return blog.likes
   })
 }
 
+const mostBlogs = (blogs) => {
+  const countByAuthors =  _.countBy(blogs, (blog) => {
+    return blog.author
+  })
+
+  const newList = _.map(countByAuthors, (blogs, author) => {
+    return {
+      author: author,
+      blogs: blogs,
+    }
+  })
+
+  const maxAuthor = _.maxBy(newList, (authorWithBlogsCount) => {
+    return authorWithBlogsCount.blogs
+  })
+
+  return maxAuthor
+}
+
+const mostLikes = (blogs) => {
+  const authorLikes = _.reduce(blogs, (result, blog) => {
+    const sumLikes = (result[blog.author] !== undefined) ? result[blog.author] : 0
+    result[blog.author] = blog.likes + sumLikes
+
+    return result;
+  }, {})
+
+  const formattedAuthorLikes = _.map(authorLikes, (likes, author) => {
+    return {
+      author: author,
+      likes: likes
+    }
+  })
+
+  const mostLikedAuthor = _.maxBy(formattedAuthorLikes, (likesByAuthor) => {
+    return likesByAuthor.likes
+  })
+
+  return mostLikedAuthor
+}
+
 module.exports = {
   dummy,
   totalLikes,
-  favoriteBlog
+  favoriteBlog,
+  mostBlogs,
+  mostLikes
 }
