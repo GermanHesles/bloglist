@@ -1,8 +1,16 @@
 const mongoose = require('mongoose')
-const supertest = require('supertest')
-const {app, server} = require('../index')
+const { server } = require('../index')
+const Blog = require('../models/Blog')
+const { api, initialBlogs } = require('./blog_helper')
 
-const api = supertest(app)
+beforeEach(async () => {
+  await Blog.deleteMany({})
+
+  for (const blog of initialBlogs) {
+    const blogObject = new Blog(blog)
+    await blogObject.save()
+  }
+})
 
 test('blogs are returned as json', async () => {
   await api
@@ -13,7 +21,7 @@ test('blogs are returned as json', async () => {
 
 test('there are two blogs', async () => {
   const response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(2)
+  expect(response.body).toHaveLength(initialBlogs.length)
 })
 
 afterAll(() => {
