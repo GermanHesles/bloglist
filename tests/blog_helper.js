@@ -20,7 +20,16 @@ const initialBlogs = [
   }
 ]
 
+const getAllblogs = async () => {
+  const response = await api.get('/api/blogs')
+  return {
+    authors: response.body.map(blog => blog.author),
+    response
+  }
+}
+
 module.exports = {
   initialBlogs,
-  api
+  api,
+  getAllblogs
 }
