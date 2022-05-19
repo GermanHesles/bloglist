@@ -24,6 +24,11 @@ test('there are two blogs', async () => {
   expect(response.body).toHaveLength(initialBlogs.length)
 })
 
+test('the unique identifier property of the blog posts is named id', async () => {
+  const id = await api.get('/api/blogs/:id')
+  expect(id).toBeDefined()
+})
+
 afterAll(() => {
   mongoose.connection.close()
   server.close()

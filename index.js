@@ -10,24 +10,23 @@ const Blog = require('./models/Blog')
 app.use(cors())
 app.use(express.json())
 
-app.get('/api/blogs', (request, response) => {
-  console.log(Blog)
-
-  Blog
-    .find({})
-    .then(blogs => {
-      response.json(blogs)
-    })
+app.get('/api/blogs', async (request, response) => {
+  const blogs = await Blog.find({})
+  response.json(blogs)
 })
 
-app.post('/api/blogs', (request, response) => {
-  const blog = new Blog(request.body)
+app.post('/api/blogs', async (request, response) => {
+  const blog = (request.body)
 
-  blog
-    .save()
-    .then(result => {
-      response.status(201).json(result)
-    })
+  const newBlog = new Blog({
+    title: blog.title,
+    author: blog.author,
+    url: new URL(),
+    likes: blog.likes
+  })
+
+  const savedBlog = await newBlog.save()
+  response.json(savedBlog)
 })
 
 const PORT = process.env.PORT || 3003
