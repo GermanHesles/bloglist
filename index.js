@@ -21,7 +21,7 @@ app.post('/api/blogs', async (request, response) => {
   const newBlog = new Blog({
     title: blog.title,
     author: blog.author,
-    url: new URL(),
+    url: blog.url,
     likes: blog.likes
   })
 
