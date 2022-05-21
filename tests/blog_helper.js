@@ -28,8 +28,14 @@ const getAllblogs = async () => {
   }
 }
 
+const getBlogById = async (id) => {
+  const response = await api.get(`/api/blogs/${id}`)
+  return response.body
+}
+
 module.exports = {
   initialBlogs,
   api,
-  getAllblogs
+  getAllblogs,
+  getBlogById
 }

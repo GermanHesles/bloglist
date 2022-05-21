@@ -1,7 +1,6 @@
 require('dotenv').config()
 require('./mongo')
 
-const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -17,6 +16,10 @@ app.get('/api/blogs', async (request, response) => {
 
 app.post('/api/blogs', async (request, response) => {
   const blog = (request.body)
+
+  if (blog.likes === undefined) {
+    blog.likes = 0
+  }
 
   const newBlog = new Blog({
     title: blog.title,

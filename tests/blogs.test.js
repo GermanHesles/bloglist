@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { server } = require('../index')
 const Blog = require('../models/Blog')
-const { api, initialBlogs, getAllblogs } = require('./blog_helper')
+const { api, initialBlogs, getAllblogs, getBlogById } = require('./blog_helper')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -25,15 +25,16 @@ test('there are two blogs', async () => {
 })
 
 test('the unique identifier property of the blog posts is named id', async () => {
-  const id = await api.get('/api/blogs/:id')
+  const { body } = await api.get('/api/blogs')
+  const id = body[0].id
   expect(id).toBeDefined()
 })
 
 test('a valid blog can be added', async () => {
   const newBlog = {
-    title: String,
-    author: String,
-    url: String,
+    title: 'String',
+    author: 'String',
+    url: 'String',
     likes: Number
   }
 
@@ -45,7 +46,23 @@ test('a valid blog can be added', async () => {
 
   const { response } = await getAllblogs()
 
-  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(response.body).toHaveLength(3)
+})
+
+test('if the likes property is missing from the request, it will default to the value 0', async () => {
+  const newBlog = {
+    title: 'Dr Strange',
+    author: 'Stanley Kubrick',
+    url: 'String'
+  }
+
+  const { body } = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  expect(body.likes).toStrictEqual(0)
 })
 
 afterAll(() => {
