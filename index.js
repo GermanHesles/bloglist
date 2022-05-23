@@ -14,11 +14,17 @@ app.get('/api/blogs', async (request, response) => {
   response.json(blogs)
 })
 
-app.post('/api/blogs', async (request, response) => {
+app.post('/api/blogs', async (request, response, next) => {
   const blog = (request.body)
 
   if (blog.likes === undefined) {
     blog.likes = 0
+  }
+
+  if (!blog.author || !blog.url) {
+    return response.status(400).json({
+      error: 'requeride "content" fied is missing'
+    })
   }
 
   const newBlog = new Blog({
@@ -28,8 +34,12 @@ app.post('/api/blogs', async (request, response) => {
     likes: blog.likes
   })
 
-  const savedBlog = await newBlog.save()
-  response.json(savedBlog)
+  try {
+    const savedBlog = await newBlog.save()
+    response.json(savedBlog)
+  } catch (error) {
+    next(error)
+  }
 })
 
 const PORT = process.env.PORT || 3003

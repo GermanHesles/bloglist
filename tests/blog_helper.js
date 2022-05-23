@@ -20,7 +20,7 @@ const initialBlogs = [
   }
 ]
 
-const getAllblogs = async () => {
+const getAllBlogs = async () => {
   const response = await api.get('/api/blogs')
   return {
     authors: response.body.map(blog => blog.author),
@@ -36,6 +36,6 @@ const getBlogById = async (id) => {
 module.exports = {
   initialBlogs,
   api,
-  getAllblogs,
+  getAllBlogs,
   getBlogById
 }
