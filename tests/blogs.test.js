@@ -35,10 +35,10 @@ describe('GET endpoints', () => {
 describe('POST endpoints', () => {
   test('a valid blog can be added', async () => {
     const newBlog = {
-      title: 'String',
-      author: 'String',
+      title: 'Apocalipse now',
+      author: 'Francis Ford Coppola',
       url: 'String',
-      likes: Number
+      likes: 7
     }
 
     await api
@@ -83,6 +83,21 @@ describe('POST endpoints', () => {
 
     expect(response.body).toHaveLength(2)
   })
+})
+
+test('a blog can be deleted', async () => {
+  const { response: firstResponse } = await getAllBlogs()
+  const { body: blogs } = firstResponse
+  const blogToDelete = blogs[0]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(200)
+
+  const { authors, response: secondResponse } = await getAllBlogs()
+
+  expect(secondResponse.body).toHaveLength(1)
+  expect(authors).not.toContain('Murnau')
 })
 
 afterAll(() => {

@@ -42,6 +42,13 @@ app.post('/api/blogs', async (request, response, next) => {
   }
 })
 
+app.delete('/api/blogs/:id', async (request, response) => {
+  const { id } = request.params
+
+  await Blog.findByIdAndDelete(id)
+  response.status(200).end()
+})
+
 const PORT = process.env.PORT || 3003
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
