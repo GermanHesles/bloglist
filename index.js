@@ -14,6 +14,13 @@ app.get('/api/blogs', async (request, response) => {
   response.json(blogs)
 })
 
+app.get('/api/blogs/:id', async (request, response) => {
+  const { id } = request.params
+  const blog = await Blog.findById(id)
+
+  response.json(blog)
+})
+
 app.post('/api/blogs', async (request, response, next) => {
   const blog = (request.body)
 
@@ -47,6 +54,22 @@ app.delete('/api/blogs/:id', async (request, response) => {
 
   await Blog.findByIdAndDelete(id)
   response.status(200).end()
+})
+
+app.put('/api/blogs/:id', async (request, response, next) => {
+  const { id } = request.params
+  const blog = request.body
+
+  const updatedBlog = {
+    title: blog.title,
+    author: blog.author,
+    url: blog.url,
+    likes: blog.likes
+  }
+
+  const updateBlog = await Blog.findByIdAndUpdate(id, updatedBlog, { new: true })
+
+  response.json(updateBlog).end()
 })
 
 const PORT = process.env.PORT || 3003

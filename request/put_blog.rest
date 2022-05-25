@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/62363f33f0704bd39d54fc32
+Content-Type: application/json
+
+{
+	"title": "Nosferatu",
+	"author": "Murnau",
+	"url": "String",
+	"likes": 14
+}

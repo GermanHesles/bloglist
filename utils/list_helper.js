@@ -1,6 +1,5 @@
 const _ = require('lodash')
-const { all } = require("express/lib/application")
-
+const { all } = require('express/lib/application')
 
 const dummy = (blog) => {
   return 1
@@ -24,14 +23,14 @@ const favoriteBlog = (blogs) => {
 }
 
 const mostBlogs = (blogs) => {
-  const countByAuthors =  _.countBy(blogs, (blog) => {
+  const countByAuthors = _.countBy(blogs, (blog) => {
     return blog.author
   })
 
   const newList = _.map(countByAuthors, (blogs, author) => {
     return {
       author: author,
-      blogs: blogs,
+      blogs: blogs
     }
   })
 
@@ -47,7 +46,7 @@ const mostLikes = (blogs) => {
     const sumLikes = (result[blog.author] !== undefined) ? result[blog.author] : 0
     result[blog.author] = blog.likes + sumLikes
 
-    return result;
+    return result
   }, {})
 
   const formattedAuthorLikes = _.map(authorLikes, (likes, author) => {

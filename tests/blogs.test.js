@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+
 const { server } = require('../index')
 const Blog = require('../models/Blog')
-const { api, initialBlogs, getAllBlogs } = require('./blog_helper')
+const { api, initialBlogs, getAllBlogs, getBlogById } = require('./blog_helper')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -85,19 +86,44 @@ describe('POST endpoints', () => {
   })
 })
 
-test('a blog can be deleted', async () => {
-  const { response: firstResponse } = await getAllBlogs()
-  const { body: blogs } = firstResponse
-  const blogToDelete = blogs[0]
+describe('DELETE endpoints', () => {
+  test('a blog can be deleted', async () => {
+    const { response: firstResponse } = await getAllBlogs()
+    const { body: blogs } = firstResponse
+    const blogToDelete = blogs[0]
 
-  await api
-    .delete(`/api/blogs/${blogToDelete.id}`)
-    .expect(200)
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .expect(200)
 
-  const { authors, response: secondResponse } = await getAllBlogs()
+    const { authors, response: secondResponse } = await getAllBlogs()
 
-  expect(secondResponse.body).toHaveLength(1)
-  expect(authors).not.toContain('Murnau')
+    expect(secondResponse.body).toHaveLength(1)
+    expect(authors).not.toContain(blogToDelete.author)
+  })
+})
+
+describe('PUT endpoints', () => {
+  test('a blog can be update', async () => {
+    const { response: allBlogsResponse } = await getAllBlogs()
+    const { body: blogs } = allBlogsResponse
+    const blogToUpdate = blogs[0]
+
+    const newDataBlog = {
+      title: 'Nosferatu',
+      author: 'Murnau',
+      url: 'String',
+      likes: 13
+    }
+
+    const updatedBlog = await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(newDataBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(updatedBlog.body.likes).toStrictEqual(13)
+  })
 })
 
 afterAll(() => {
