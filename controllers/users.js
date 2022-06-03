@@ -12,7 +12,7 @@ usersRouter.get('/', async (request, response) => {
   response.json(users)
 })
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/', async (request, response, next) => {
   const { body } = request
   const { username, name, password } = body
 
@@ -25,9 +25,13 @@ usersRouter.post('/', async (request, response) => {
     passwordHash
   })
 
-  const savedUser = await user.save()
+  try {
+    const savedUser = await user.save()
 
-  response.status(201).json(savedUser)
+    response.status(201).json(savedUser)
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = usersRouter
