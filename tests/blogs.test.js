@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const { server } = require('../index')
 const Blog = require('../models/Blog')
-const { api, initialBlogs, getAllBlogs, getBlogById } = require('./blog_helper')
+const { api, initialBlogs, getAllBlogs } = require('./blog_helper')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
