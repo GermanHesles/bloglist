@@ -7,7 +7,7 @@ module.exports = (error, request, response, next) => {
   }
 
   if (error.username === 'ValidationError') {
-    return response.status(422).json({ error: error.message })
+    return response.status(400).json({ error: error.message })
   }
 
   response.status(500).end()

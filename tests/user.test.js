@@ -47,26 +47,26 @@ describe('when there is initially one user in db', () => {
     expect(usernames).toContain('midudev')
   })
 
-  //   test('creation falls with proper statuscode and message if username is already taken', async () => {
-  //     const usersAtStart = await getUsers()
+  test('creation falls with proper statuscode and message if username is already taken', async () => {
+    const usersAtStart = await getUsers()
 
-  //     const newUser = {
-  //       username: 'root',
-  //       name: 'Miguel',
-  //       password: 'echoplex'
-  //     }
+    const newUser = {
+      username: 'root',
+      name: 'Miguel',
+      password: 'echoplex'
+    }
 
-  //     const result = await api
-  //       .post('/api/users')
-  //       .send(newUser)
-  //       .expect(422)
-  //       .expect('Content-Type', /application\/json/)
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
 
-  //     expect(result.body.error).toContain('`username` to be unique')
+    expect(result.body.error.errors.username.message).toContain('`username` to be unique')
 
-  //     const usersAtEnd = await getUsers()
-  //     expect(usersAtEnd).toHaveLength(usersAtStart.length)
-  //   })
+    const usersAtEnd = await getUsers()
+    expect(usersAtEnd).toHaveLength(usersAtStart.length)
+  })
 
   afterAll(() => {
     mongoose.connection.close()
