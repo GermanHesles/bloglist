@@ -15,7 +15,7 @@ const initialBlogs = [
     title: 'El Séptimo Sello',
     author: 'Ingmar Bergman',
     url: 'String',
-    likes: 2,
+    likes: 3,
     id: '62363f33f0704bd39d54fc32'
   }
 ]
