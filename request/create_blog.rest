@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Nosferatu",
-  "author": "Murnau",
+  "title": "Choronzo The Devil",
+  "author": "lewis Hamilton",
   "url": "String",
-  "likes": 2
+  "likes": 2,
+  "userId": "62a23c55db1f981e85c2fbd2"
 }

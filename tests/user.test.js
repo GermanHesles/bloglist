@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const { server } = require('../index')
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
-const { api, getUsers } = require('./user_helper')
+const { api, getUsers } = require('./helpers')
 
 describe('when there is initially one user in db', () => {
   beforeEach(async () => {
@@ -17,6 +17,11 @@ describe('when there is initially one user in db', () => {
     })
 
     await user.save()
+  })
+
+  afterAll(async () => {
+    mongoose.connection.close()
+    await server.close()
   })
 
   test('users are returned as json', async () => {
@@ -62,14 +67,9 @@ describe('when there is initially one user in db', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    expect(result.body.error.errors.username.message).toContain('`username` to be unique')
+    expect(result.body.errors.username.message).toContain('`username` to be unique')
 
     const usersAtEnd = await getUsers()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
-  })
-
-  afterAll(() => {
-    mongoose.connection.close()
-    server.close()
   })
 })

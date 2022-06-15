@@ -1,6 +1,5 @@
-
-const usersRouter = require('express').Router()
 const bcrypt = require('bcrypt')
+const usersRouter = require('express').Router()
 const User = require('../models/User')
 
 usersRouter.get('/', async (request, response) => {
@@ -8,7 +7,8 @@ usersRouter.get('/', async (request, response) => {
     title: 1,
     author: 1,
     url: 1,
-    likes: 1
+    likes: 1,
+    id: 0
   })
   response.json(users)
 })
@@ -37,9 +37,7 @@ usersRouter.post('/', async (request, response, next) => {
 
     response.status(201).json(savedUser)
   } catch (error) {
-    response.status(400).json({
-      error
-    })
+    response.status(400).json(error)
   }
 })
 
