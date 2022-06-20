@@ -18,27 +18,28 @@ blogsRouter.get('/:id', async (request, response) => {
 })
 
 blogsRouter.post('/', async (request, response, next) => {
-  const { body, blog } = request
-  const { userId } = body
+  const { userId, likes, author, url, title } = request.body
+  console.log(request.body)
 
   const user = await User.findById(userId)
+  console.log(user)
 
-  if (blog.likes === undefined) {
-    blog.likes = 0
+  if (likes === undefined) {
+    return { likes: 0 }
   }
 
-  if (!blog.author || !blog.url) {
+  if (!author || !url) {
     return response.status(400).json({
       error: 'requeride "content" fied is missing'
     })
   }
 
   const newBlog = new Blog({
-    title: blog.title,
-    author: blog.author,
-    url: blog.url,
-    likes: blog.likes,
-    userId: user._id
+    title,
+    author,
+    url,
+    likes,
+    user: user._id
   })
 
   try {

@@ -1,4 +1,4 @@
-const { app } = require('../index')
+const { app } = require('../app')
 const supertest = require('supertest')
 const User = require('../models/User')
 

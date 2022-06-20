@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-const { server } = require('../index')
 const Blog = require('../models/Blog')
 const { api, initialBlogs, getAllBlogs } = require('./helpers')
 
@@ -16,7 +15,6 @@ describe('Blog test', () => {
 
   afterAll(async () => {
     mongoose.connection.close()
-    await server.close()
   })
 
   describe('GET endpoints', () => {
@@ -45,7 +43,8 @@ describe('Blog test', () => {
         title: 'Apocalipse now',
         author: 'Francis Ford Coppola',
         url: 'String',
-        likes: 7
+        likes: 7,
+        userId: 'Schema.Types.ObjectId'
       }
 
       await api
