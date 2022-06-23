@@ -1,20 +1,9 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const User = require('../models/User')
-const { api, getUsers } = require('./helpers')
+const { api, getUsers, initializeDb } = require('./helpers')
 
 describe('when there is initially one user in db', () => {
   beforeEach(async () => {
-    await User.deleteMany({})
-
-    const passwordHash = await bcrypt.hash('pswd', 10)
-    const user = new User({
-      username: 'root',
-      passwordHash,
-      _id: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca')
-    })
-
-    await user.save()
+    await initializeDb()
   })
 
   afterAll(() => {

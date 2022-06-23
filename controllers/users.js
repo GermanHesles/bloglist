@@ -8,7 +8,7 @@ usersRouter.get('/', async (request, response) => {
     author: 1,
     url: 1,
     likes: 1,
-    id: 0
+    _id: 0
   })
   response.json(users)
 })

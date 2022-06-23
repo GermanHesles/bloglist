@@ -1,16 +1,10 @@
 const mongoose = require('mongoose')
 
-const Blog = require('../models/Blog')
-const { api, initialBlogs, getAllBlogs } = require('./helpers')
+const { api, getAllBlogs, initializeDb } = require('./helpers')
 
 describe('Blog test', () => {
   beforeEach(async () => {
-    await Blog.deleteMany({})
-
-    for (const blog of initialBlogs) {
-      const blogObject = new Blog(blog)
-      await blogObject.save()
-    }
+    await initializeDb()
   })
 
   afterAll(async () => {
@@ -44,7 +38,7 @@ describe('Blog test', () => {
         author: 'Francis Ford Coppola',
         url: 'String',
         likes: 7,
-        userId: 'Schema.Types.ObjectId'
+        userId: '56cb91bdc3464f14678934ca'
       }
 
       await api
