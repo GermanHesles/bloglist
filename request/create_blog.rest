@@ -1,10 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYmRlNDJjMmRiYzI5OGFhNWU3OTIzNiIsInVzZXJuYW1lIjoiQmFhbCIsImlhdCI6MTY1NjYxMTg5Mn0.f-IJMpSZ3jGqIaK9bV0rzNLE1SkNiUXP_FUB8iEqBPY
 
 {
   "title": "Choronzo The Devil",
   "author": "lewis Hamilton",
   "url": "String",
-  "likes": 2,
-  "userId": "62bc45c1d19ea9665a2925b3"
+  "likes": 2
 }
