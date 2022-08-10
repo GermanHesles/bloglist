@@ -1,6 +1,7 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYmVkM2Q2NGI2MjVjMjZhOTNkOTlkNCIsInVzZXJuYW1lIjoiQmFhbCIsImlhdCI6MTY1NjY3MzI0NywiZXhwIjoxNjU3Mjc4MDQ3fQ.iZo0uGgSzoT4p2dVDYcuOk8FHKf-MbA-bHQXrKEsCVc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjNjOTFmZjllNmVlZGUxOGY5YzA3YSIsInVzZXJuYW1lIjoiQmFhbCIsImlhdCI6MTY2MDE0MzkxMiwiZXhwIjoxNjYwNzQ4NzEyfQ.PYdCq_yOXOfsBh5vUa2LlfTLpNYS3QF__T7vsL5Hx1c
+
 
 {
   "title": "Choronzo The Devil",

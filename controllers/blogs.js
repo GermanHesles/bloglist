@@ -55,11 +55,19 @@ blogsRouter.post('/', userExtractor, async (request, response, next) => {
   }
 })
 
-blogsRouter.delete('/:id', userExtractor, async (request, response) => {
+blogsRouter.delete('/:id', userExtractor, async (request, response, next) => {
   const { id } = request.params
+  const { userId } = request
 
-  await Blog.findByIdAndDelete(id)
-  response.status(200).end()
+  try {
+    const blog = await Blog.findById(id)
+    if (blog.user.toString() === userId.toString()) {
+      await Blog.findByIdAndDelete(id)
+      response.status(200).end()
+    }
+  } catch (error) {
+    next(error)
+  }
 })
 
 blogsRouter.put('/:id', userExtractor, async (request, response, next) => {

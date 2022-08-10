@@ -1,5 +1,6 @@
 PUT http://localhost:3003/api/blogs/62363f33f0704bd39d54fc32
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjE0MjA1NGVhM2JhZjhkMjQyMGM2OSIsInVzZXJuYW1lIjoiQmFhbCIsImlhdCI6MTY1OTk3ODI1MywiZXhwIjoxNjYwNTgzMDUzfQ.ws1Ki-TuMQhpoypWUEE0375DvyB6UbFBOY2oQI1NzSc
 
 {
 	"title": "Nosferatu",
